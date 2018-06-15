@@ -21,6 +21,7 @@ from oslo_log import log as logging
 from networking_generic_switch import config as gsw_conf
 from networking_generic_switch import devices
 from networking_generic_switch.devices import utils as device_utils
+from networking_generic_switch import ironic_notifier
 
 LOG = logging.getLogger(__name__)
 
@@ -46,6 +47,8 @@ class GenericSwitchDriver(api.MechanismDriver):
         if not self.switches:
             LOG.error('No devices have been loaded')
         self.warned_del_network = False
+        ironic_notifier.Notifier()
+
 
     def create_network_precommit(self, context):
         """Allocate resources for a new network.
